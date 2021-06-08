@@ -1,24 +1,59 @@
 // Push Front
-var myArr = [1, 2, 3];
-myArr.unshift(0);
-console.log(myArr);
+
+function pushFront(arr, value) {
+    for (let i = arr.length; i > 0; i--)
+        arr[i] = arr[i - 1]
+    arr[0] = value;
+    return arr;
+}
 
 // Pop Front
-var myArr = [1, 2, 3];
-myArr.shift(0);
-console.log(myArr);
+
+function popFront(arr) {
+    const val = arr[0];
+    for (let i = 0; i < arr.length; i++)
+        arr[i] = arr[i + 1];
+    arr.length = arr.length - 1;
+    return val;
+}
 
 // Insert At
-var myArr = ["Nike", "Adidas", "Reebok"];
-var x = "Puma";
-myArr[3] = x;
-console.log(myArr);
+
+function insertAt(arr, idx, value) {
+    for (let i = arr.length; i > idx; i--)
+        arr[i] = arr[i - 1]
+
+    arr[idx] = value;
+}
 
 // Remove At
-var myArr = ["Jazz", "Clippers", "Suns", "Nuggets"];
-var index = myArr.indexOf("Clippers");
-if (index > -1) {
-    myArr.splice(index, 1);
-}
-console.log(myArr + " = easy money for the Clippers");
 
+function removeAt(arr, idx) {
+    toRemove = arr[idx];
+    for (let i = idx; i < arr.length - 1; i++) {
+        arr[i] = arr[i + 1];
+    }
+    arr.length = arr.length - 1;
+    return toRemove;
+}
+
+// Swap Pairs
+
+function swapPairs(arr) {
+    for (let i = 0; i < arr.length - 1; i = 1 + 2) {
+        let temp = arr[i];
+        arr[i] = arr[i + 1];
+        arr[i + 1] = temp;
+    }
+}
+
+// Remove Duplicates
+
+function removeDuplicates(arr) {
+    let newArr = [];
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] !== arr[i + 1])
+            newArr.push(arr[i])
+    }
+    return newArr;
+}
