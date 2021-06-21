@@ -40,12 +40,14 @@ def login(request):
         return redirect('/dashboard')
 
 def dashboard(request):
+    this_user = User.objects.get(id=request.session['user_id'])
     if 'user_id' not in request.session:
         return redirect('/')
     else:
         context = {
+            'liked_reviews': Review.objects.filter(liked_by=this_user),
             'all_reviews': Review.objects.all(),
-            'this_user': User.objects.get(id=request.session['user_id'])
+            'this_user': this_user
         }
         return render(request, 'dashboard.html', context)
 
@@ -118,9 +120,7 @@ def edit_review(request, review_id):
     return redirect('/dashboard')
 
 def like(request, review_id):
-    if 'user_id' not in request.session:
-        return redirect('/dashboard')
-    if request.method == "POST":
+    if request.method == "GET":
         review = Review.objects.get(id=review_id)
         user = User.objects.get(id=request.session['user_id'])
         review.liked_by.add(user)
@@ -128,9 +128,7 @@ def like(request, review_id):
     return redirect('/dashboard')
 
 def unlike(request, review_id):
-    if 'user_id' not in request.session:
-        return redirect('/dashboard')
-    if request.method == "POST":
+    if request.method == "GET":
         review = Review.objects.get(id=review_id)
         user = User.objects.get(id=request.session['user_id'])
         review.liked_by.remove(user)

@@ -66,14 +66,15 @@
                         <td>{{ Review.content }}</td>
                         <td>{{ Review.liked_by.count }}</td>
                         <td>
-                            {% if user not in Review.liked_by.all %}
+                            {% if this_user not in liked_reviews %}
                             <a href="/like/{{Review.id}}"><button class="btn btn-primary"
                                     type="submit">Like</button></a>
-                            {% else %}
+                            {% endif %}
+                            {% if this_user != Review.liked_by.all %}
                             <a href="/unlike/{{Review.id}}"><button class="btn btn-primary"
                                     type="submit">Unlike</button></a>
                             {% endif %}
-                            <a href="/view_review/{{Review.id}}">Edit</a> |
+                            | <a href="/view_review/{{Review.id}}">Edit</a> |
                             <a href="/remove_review/{{Review.id}}">Delete</a>
                         </td>
                     </tr>
@@ -91,10 +92,11 @@
                         <td>{{ Review.content }}</td>
                         <td>{{ Review.liked_by.count }}</td>
                         <td>
-                            {% if user not in Review.liked_by.all %}
+                            {% if this_user not in liked_reviews %}
                             <a href="/like/{{Review.id}}"><button class="btn btn-primary"
                                     type="submit">Like</button></a>
-                            {% else %}
+                            {% endif %}
+                            {% if this_user != Review.liked_by.all %}
                             <a href="/unlike/{{Review.id}}"><button class="btn btn-primary"
                                     type="submit">Unlike</button></a>
                             {% endif %}
